@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { navigate } from "gatsby"
 
 import DeliveryMetrics from "./DeliveryMetrics"
 import Rescues from "./Rescues"
@@ -58,14 +59,14 @@ export default function Form() {
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
             body: encode({"form-name": "closing-notes", ...formData})
         })
-        .then(() => alert("Success!"))
+        .then(() => navigate('/success/'))
         .catch(error => alert(error))
         event.preventDefault()
     }
     return(
         <div className="max-w-sm mx-auto">
         <h1 className="text-4xl font-semibold">Closing Notes</h1>
-        <form onSubmit={handleSubmit} name="closing-notes" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <form onSubmit={handleSubmit} action="/" method="post" name="closing-notes" netlify data-netlify="true" data-netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="closing-notes"/>
             <div className="mb-8">
                 <DeliveryMetrics initialState={formData.delivery} />
