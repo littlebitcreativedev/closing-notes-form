@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 
-import TextareaField from "./textarea-field.component"
 import MultipleInputFields from "./multiple-input-fields.component"
 
 const RadioGroup = ({initialData="", question, labelText, inputName, type, placeholderText, onChange}) => {
@@ -40,8 +39,6 @@ return (
                 <label htmlFor={`no-${inputName}`} className="block ms-2 text-sm font-medium text-white">No</label>
               </div>
               {showTextArea && (
-                
-                
                 <MultipleInputFields 
                 initialData = {initialData} 
                 onChange={onChange}

@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 import InputField from "./reusable-components/input-field.component.jsx"
-import TextareaField from "./reusable-components/textarea-field.component.jsx"
 import RadioGroup from "./reusable-components/radio-group.component.jsx"
 import MultipleInputFields from "./reusable-components/multiple-input-fields.component.jsx"
 
@@ -36,15 +35,6 @@ return (
             inputName="rescuer-list"
             placeholderText="e.g John (20 stops, 200 packages)"
             />
-            {/**<TextareaField 
-            labelText="List rescuers"
-            inputName="rescuer-list"
-            type="text"
-            numberRows={6}
-            placeholderText="e.g John (20 stops, 200 packages)"
-            value={metrics["rescuer-list"]}
-            onChange={handleInputChange}
-            />*/}
           </div> {/** closes rescuers container */}
           <div className="support-container mb-5">
             <RadioGroup
