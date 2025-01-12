@@ -9,14 +9,6 @@ module.exports = {
     author: `@littlebitcreativedev`
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Closing Notes`,
-        start_url: `/`,
-        icon: `images/favicon-32x32.png`
-      }
-    },
     'gatsby-plugin-postcss',
     '@skagami/gatsby-plugin-dark-mode',
     'gatsby-plugin-image',
