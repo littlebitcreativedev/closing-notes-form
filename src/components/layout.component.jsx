@@ -1,5 +1,6 @@
 import React from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
+import { Helmet } from 'react-helmet'
 
 
 import "./layout.css"
@@ -9,6 +10,9 @@ export default function Layout({children}) {
 
     return (
         <div className="bg-zinc-900 text-zinc-300 layout-component">
+            <Helmet>
+                <link rel="icon" href="/src/images/favicon-32x32.png" />
+            </Helmet>
             <div className="container w-1/2">
                 <header className="py-10">
                 <div className="flex items-center gap-4">

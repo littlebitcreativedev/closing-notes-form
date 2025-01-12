@@ -23,7 +23,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="phones"
                 name="phones"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics.phones}
                 onChange={handleInputChange}
@@ -38,7 +38,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="powerbanks"
                 name="powerbanks"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics.powerbanks}
                 onChange={handleInputChange}
@@ -53,7 +53,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="edv-fobs"
                 name="edv-fobs"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics["edv-fobs"]}
                 onChange={handleInputChange}
@@ -68,7 +68,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="apartment-fobs"
                 name="apartment-fobs"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics["apartment-fobs"]}
                 onChange={handleInputChange}
@@ -83,7 +83,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="gas-cards"
                 name="gas-cards"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics["gas-cards"]}
                 onChange={handleInputChange}
@@ -98,7 +98,7 @@ return (
                 className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
                 id="rental-keys"
                 name="rental-keys"
-                type="number"
+                type="text"
                 placeholder="e.g 23"
                 value={metrics["rental-keys"]}
                 onChange={handleInputChange}

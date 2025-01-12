@@ -13,5 +13,6 @@ module.exports = {
     '@skagami/gatsby-plugin-dark-mode',
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
+    'gatsby-plugin-react-helmet',
   ],
 }
