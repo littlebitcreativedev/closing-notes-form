@@ -14,7 +14,7 @@ module.exports = {
       options: {
         name: `Closing Notes`,
         start_url: `/`,
-        icon: `static/favicon-16x16.png`
+        icon: `images/favicon-32x32.png`
       }
     },
     'gatsby-plugin-postcss',
