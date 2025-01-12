@@ -43,48 +43,48 @@ const SuccessPage = () => {
                 <div className="rescue-metrics mb-4">
                     <p>Number of rescuers: {submittedData.rescueMetrics["rescuer-count"]}</p>
                     <p>List rescuers:</p>
-                    <ul className="mb-4">
+                    <div className="mb-4">
                     {submittedData.rescueMetrics["rescuer-list"]
                         .split('\n')
                         .filter(rescuer => rescuer.trim() !== '')
                         .map((rescuer, index) => (
-                            <li key={index}>{rescuer}</li>
+                            <p key={index}>{rescuer}</p>
                         ))
                     }
-                    </ul>
+                    </div>
                     
                     <p>Rescues for OT support:</p>
-                    <ul className="mb-4">
+                    <div className="mb-4">
                     {submittedData.rescueMetrics["support-list"]
                         .split('\n')
                         .filter(rescuer => rescuer.trim() !== '')
                         .map((rescuer, index) => (
-                            <li key={index}>{rescuer}</li>
+                            <p key={index}>{rescuer}</p>
                         ))
                     }
-                    </ul>
+                    </div>
                    
                     <p>Flex + rescue:</p>
-                    <ul className="mb-4">
+                    <div className="mb-4">
                     {submittedData.rescueMetrics["flex-list"]
                         .split('\n')
                         .filter(rescuer => rescuer.trim() !== '')
                         .map((rescuer, index) => (
-                            <li key={index}>{rescuer}</li>
+                            <p key={index}>{rescuer}</p>
                         ))
                     }
-                    </ul>
+                    </div>
                     
                     <p>Split + rescue:</p>
-                    <ul className="mb-4">
+                    <div className="mb-4">
                     {submittedData.rescueMetrics["split-list"]
                         .split('\n')
                         .filter(rescuer => rescuer.trim() !== '')
                         .map((rescuer, index) => (
-                            <li key={index}>{rescuer}</li>
+                            <p key={index}>{rescuer}</p>
                         ))
                     }
-                    </ul>
+                    </div>
                 </div>
                 <div className="incident-injuries mb-4">
                     <p>Incidents/Injuries:</p>
@@ -92,15 +92,15 @@ const SuccessPage = () => {
                 </div>
                 <div className="closing-metrics mb-4">
                     <p>Rescued:</p>
-                    <ul className="mb-4">
+                    <div className="mb-4">
                     {submittedData.closingMetrics["rescued-drivers"]
                         .split('\n')
-                        .filter(rescuer => rescuer.trim() !== '')
-                        .map((rescuer, index) => (
-                            <li key={index}>{rescuer}</li>
+                        .filter(driver => driver.trim() !== '')
+                        .map((driver, index) => (
+                            <p key={index}>{driver}</p>
                         ))
                     }
-                    </ul>
+                    </div>
                     <p>Last driver: {submittedData.closingMetrics["last-driver"]}</p>
                 </div>
                 <div className="equipment-counts mb-4">
