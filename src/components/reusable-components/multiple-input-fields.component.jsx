@@ -17,7 +17,7 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
             return input;
         });
         
-        setInputs(updatedInputs);
+        setInputs(updatedInputs); 
         
         // Combine all values
         const combinedValues = updatedInputs
@@ -78,7 +78,8 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
 
     return (
         <div className="multiple-inputs-container mb-3 md:mb-5">
-            <label className="block mb-1 md:mb-2 text-xs md:text-sm font-medium text-white" htmlFor={inputName}>
+            <label className="block mb-1 md:mb-2 text-xs md:text-sm font-medium text-white" 
+            htmlFor={`${inputName}-0`}>
             {labelText}:
             </label>
             {inputs.map((input) => (
@@ -87,11 +88,13 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
                     className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 
                     placeholder-zinc-400 text-white focus:ring-lime-500 
                     focus:border-lime-500 block w-full p-2 md:p-2.5 text-sm md:text-base" 
+                    id={`${inputName}-${input.id}`}
                     name={`${inputName}-${input.id}`}
                     type={type}
                     placeholder={placeholderText}
                     value={input.value || ''}
                     onChange={handleInputChange}
+                    aria-label={`${labelText} ${input.id + 1}`}
                     required
                     />
                     {inputs.length > 1 && (
@@ -102,6 +105,7 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
                         hover:bg-red-900 focus:ring-4 focus:outline-none 
                         focus:ring-red-300 font-medium rounded-lg 
                         text-xs md:text-sm px-2 py-2 md:px-3 md:py-2.5 text-center"
+                        aria-label={`Remove ${labelText} ${input.id + 1}`}
                         >
                         Remove
                         </button>
@@ -115,6 +119,7 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
             hover:bg-lime-800 focus:ring-4 focus:outline-none 
             focus:ring-lime-300 font-medium rounded-lg 
             text-xs md:text-sm px-4 py-2 md:px-5 md:py-2.5 text-center"
+            aria-label={`Add ${labelText}`}
             >Add Driver</button>   
         </div> 
     )
