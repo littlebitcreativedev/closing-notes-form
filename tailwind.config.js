@@ -7,10 +7,20 @@ module.exports = {
     "./node_modules/flowbite-react/**/*.js",
   ],
   theme: {
+    screens: {
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+    },
     container: {
       center: true,
     },
     extend: {
+      spacing: {
+        'input-mobile': '44px',
+        'input-desktop': '48px',
+      }
     },
    
   },

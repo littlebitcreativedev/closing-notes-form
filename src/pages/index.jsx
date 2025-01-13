@@ -177,7 +177,7 @@ const IndexPage = () => {
     <Layout>
       <form 
       onSubmit={handleSubmit}
-      className="mb-8" 
+      className="mb-8 space-y-6" 
       name="closing-notes-form" 
       method="POST"
       >
@@ -187,7 +187,9 @@ const IndexPage = () => {
         <ClosingMetrics metrics={formData.closingMetrics} onChange={handleClosingMetricsChange} />
         <EquipmentCounts metrics={formData.equipmentCounts} onChange={handleEquipmentCountsChange} />
         <ExtraNotes metrics={formData.extraNotes} onChange={handleExtraNotesChange} />
-        <button type="submit" className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        <button 
+        type="submit" 
+        className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full md:w-auto px-4 py-2.5 text-center mt-6"
         disabled={isSubmitting}
         >
         {isSubmitting ? 'Submitting...' : 'Submit'}
@@ -199,4 +201,12 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => <title>Closing Notes</title>
+export const Head = () => (
+  <>
+      <html lang="en" />
+      <meta charSet="UTF-8" />
+      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+      <title>Closing Notes</title>
+  </>
+)

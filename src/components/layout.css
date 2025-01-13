@@ -2,3 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Base Container Styles */
+.deliver-metrics-container,
+.rescue-metrics-container,
+.incident-report-container,
+.closing-metrics-container,
+.extra-notes-container {
+    @apply max-w-full overflow-hidden mb-8 md:mb-14 
+           bg-zinc-800 rounded-lg p-4 md:py-10 
+           md:px-8 lg:px-20 transition-all duration-300;
+}
+
+/* Sections Layout */
+.metrics-sections {
+    @apply w-full space-y-6 md:space-y-8 divide-y divide-zinc-700;
+}
+
+.metrics-sections > div {
+    @apply pt-6 first:pt-0 transition-all duration-200;
+}
+
+/* Input Containers */
+.metric-item,
+.input-group,
+.textarea-field-container {
+    @apply w-full transition-all duration-200;
+}
+
+/* Input Fields */
+input,
+textarea,
+select {
+    @apply w-full text-sm md:text-base p-2 md:p-2.5
+           shadow-sm rounded-lg bg-zinc-700 
+           border-zinc-600 placeholder-zinc-400 text-white;
+}
+
+/* Textarea Specific */
+textarea {
+    @apply min-h-[120px] md:min-h-[160px] resize-none;
+}
+
+/* Labels */
+label {
+    @apply block mb-1 md:mb-2 text-xs md:text-sm font-medium text-white;
+}
+
+/* Helper Text */
+.helper-text {
+    @apply mt-1 md:mt-2 text-[10px] md:text-xs text-gray-500;
+}
+
+/* Focus States */
+input:focus,
+textarea:focus,
+select:focus {
+    @apply outline-none ring-2 ring-lime-500 border-lime-500;
+}
+
+/* Buttons */
+button {
+    @apply transition-colors duration-200;
+}
+
+.add-button {
+    @apply w-full sm:w-auto text-white bg-lime-700 
+           hover:bg-lime-800 focus:ring-4 focus:outline-none 
+           focus:ring-lime-300 font-medium rounded-lg 
+           text-xs md:text-sm px-4 py-2 md:px-5 md:py-2.5 
+           text-center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    input,
+    textarea,
+    select {
+        @apply min-h-[44px] text-base; /* Prevents zoom on iOS */
+    }
+
+    .input-group {
+        @apply flex-col;
+    }
+    
+    .input-group button {
+        @apply self-end;
+    }
+}
+
+/* Utility Classes */
+@layer utilities {
+    .touch-target {
+        @apply min-h-[44px] min-w-[44px];
+    }
+}

@@ -77,14 +77,16 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
     }, [initialData]);
 
     return (
-        <div className="multiple-inputs-container mb-5">
-            <label className="block mb-2 text-sm font-medium text=white" htmlFor={inputName}>
+        <div className="multiple-inputs-container mb-3 md:mb-5">
+            <label className="block mb-1 md:mb-2 text-xs md:text-sm font-medium text-white" htmlFor={inputName}>
             {labelText}:
             </label>
             {inputs.map((input) => (
-                <div key={input.id} className='flex items-center gap-4 mb-5'>
+                <div key={input.id} className='flex flex-col sm:flex-row items-start md:items-center gap-2 sm:gap-4 mb-3 md:mb-5'>
                     <input 
-                    className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 placeholder-zinc-400 text-white focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5" 
+                    className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 
+                    placeholder-zinc-400 text-white focus:ring-lime-500 
+                    focus:border-lime-500 block w-full p-2 md:p-2.5 text-sm md:text-base" 
                     name={`${inputName}-${input.id}`}
                     type={type}
                     placeholder={placeholderText}
@@ -96,7 +98,10 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
                         <button 
                         type="button"
                         onClick={() => removeInput(input.id)}
-                        className="text-white bg-red-800 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2.5 text-center"
+                        className="w-full sm:w-auto text-white bg-red-800 
+                        hover:bg-red-900 focus:ring-4 focus:outline-none 
+                        focus:ring-red-300 font-medium rounded-lg 
+                        text-xs md:text-sm px-2 py-2 md:px-3 md:py-2.5 text-center"
                         >
                         Remove
                         </button>
@@ -106,7 +111,10 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
             <button 
             type="button"
             onClick={addInput} 
-            className="text-white bg-lime-700 hover:bg-lime-800 focus:ring-4 focus:outline-none focus:ring-lime-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="w-full sm:w-auto text-white bg-lime-700 
+            hover:bg-lime-800 focus:ring-4 focus:outline-none 
+            focus:ring-lime-300 font-medium rounded-lg 
+            text-xs md:text-sm px-4 py-2 md:px-5 md:py-2.5 text-center"
             >Add Driver</button>   
         </div> 
     )

@@ -14,20 +14,23 @@ const ExtraNotes = ({metrics, onChange}) => {
     }
 
 return (
-        <div className="extra-container mb-14 bg-zinc-800 rounded-lg p-10">
-            <div className="notes-container">
-                <TextareaField
-                labelText="Extra"
-                inputName="extra-notes"
-                type="text"
-                numberRows={8}
-                placeholderText="e.g EDV01 - Fob is with maintenance."
-                helperText="Anything of note to report for openers or fleet. Leave blank if there is nothing extra to add."
-                value={metrics["extra-notes"]}
-                onChange={handleInputChange}
-                />
-            </div>
-            <div className="submitted-container">
+        <div className="extra-notes-container mb-8 md:mb-14 
+                        bg-zinc-800 rounded-lg p-4 md:py-10 
+                        md:px-8 lg:px-20 transition-all duration-300">
+            <div className="metrics-sections space-y-6 md:space-y-8">
+                <div className="notes-section">
+                    <TextareaField
+                    labelText="Extra"
+                    inputName="extra-notes"
+                    type="text"
+                    numberRows={8}
+                    placeholderText="e.g EDV01 - Fob is with maintenance."
+                    helperText="Anything of note to report for openers or fleet. Leave blank if there is nothing extra to add."
+                    value={metrics["extra-notes"]}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                <div className="submitted-section">
                 <InputField
                 labelText="Submitted by"
                 inputName="submitted-by"
@@ -37,6 +40,7 @@ return (
                 value={metrics["submitted-by"]}
                 onChange={handleInputChange}
                 />
+            </div>
             </div>
         </div>
 
