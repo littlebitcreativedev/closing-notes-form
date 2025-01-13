@@ -1,12 +1,9 @@
-import React, { useState } from "react"
-import { format } from 'date-fns'
+import React from "react"
 
 
 import InputField from "./reusable-components/input-field.component.jsx"
 
-const DeliveryMetrics = ({metrics, onChange}) => {
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-   
+const DeliveryMetrics = ({metrics, onChange}) => {  
     const handleInputChange = (event) => {
         const { name, value } = event.target
         onChange({

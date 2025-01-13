@@ -93,14 +93,15 @@ const IndexPage = () => {
   }
   
   const formatEquipmentCounts = (equipmentCounts) => {
-    return `
-    Phones: ${equipmentCounts.phones}
-    Powerbanks: ${equipmentCounts.powerbanks}
-    EDV Fobs: ${equipmentCounts['edv-fobs']}
-    Apt. Fobs ${equipmentCounts['apartment-fobs']}
-    Gas Cards: ${equipmentCounts['gas-cards']}
-    Rental Keys: ${equipmentCounts['rental-keys']}`
-  }
+    return [
+      `Phones: ${equipmentCounts.phones || '0'}`,
+      `Powerbanks: ${equipmentCounts.powerbanks || '0'}`,
+      `EDV Fobs: ${equipmentCounts['edv-fobs'] || '0'}`,
+      `Apt. Fobs: ${equipmentCounts['apartment-fobs'] || '0'}`,
+      `Gas Cards: ${equipmentCounts['gas-cards'] || '0'}`,
+      `Rental Keys: ${equipmentCounts['rental-keys'] || '0'}`
+    ].join('\n');
+  };
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -108,41 +109,32 @@ const IndexPage = () => {
     event.preventDefault()
     setIsSubmitting(true)
 
+
     try {
-      const formattedData = [
-        [
-            // Date
-            formData.deliveryMetrics.date,
-            // Delivery Metrics
-            formData.deliveryMetrics.delivered,
-            formData.deliveryMetrics.routes,
-            formData.deliveryMetrics.returned,
-            // Rescue Metrics
-            formData.rescueMetrics['rescuer-count'],
-            formData.rescueMetrics['rescuer-list'],
-            formData.rescueMetrics['support-list'],
-            formData.rescueMetrics['flex-list'],
-            formData.rescueMetrics['split-list'],
-            // Incident Reports
-            formData.incidentInjuries['incident-injuries'],
-            // Closing Metrics
-            formData.closingMetrics['rescued-drivers'],
-            formData.closingMetrics['last-driver'],
-            // Equipment Counts
-            formatEquipmentCounts(formData.equipmentCounts),
-            /***formData.equipmentCounts.phones,
-            formData.equipmentCounts.powerbanks,
-            formData.equipmentCounts['edv-fobs'],
-            formData.equipmentCounts['apartment-fobs'],
-            formData.equipmentCounts['gas-cards'],
-            formData.equipmentCounts['rental-keys'], */
-            // Extra Notes
-            formData.extraNotes['extra-notes'],
-            formData.extraNotes['submitted-by']
-        ]
+
+    const formattedData = [
+      [
+        String(formData.deliveryMetrics.date || ''),
+        String(formData.deliveryMetrics.delivered || ''),
+        String(formData.deliveryMetrics.routes || ''),
+        String(formData.deliveryMetrics.returned || ''),
+        String(formData.rescueMetrics['rescuer-count'] || ''),
+        String(formData.rescueMetrics['rescuer-list'] || ''),
+        String(formData.rescueMetrics['support-list'] || ''),
+        String(formData.rescueMetrics['flex-list'] || ''),
+        String(formData.rescueMetrics['split-list'] || ''),
+        String(formData.incidentInjuries['incident-injuries'] || ''),
+        String(formData.closingMetrics['rescued-drivers'] || ''),
+        String(formData.closingMetrics['last-driver'] || ''),
+        formatEquipmentCounts(formData.equipmentCounts),
+        String(formData.extraNotes['extra-notes'] || ''),
+        String(formData.extraNotes['submitted-by'] || '')
+      ]
     ]
 
-      const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/FLurkYLqpWXrslDP?tabId=Sheet1', {
+    console.log('sending data:', formattedData)
+
+      const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -150,23 +142,27 @@ const IndexPage = () => {
         body: JSON.stringify(formattedData)
       })
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
       const result = await response.json()
 
+      if (!response.ok) {
+        console.log('Error response:', result)
+        throw new Error(`submission failed: ${JSON.stringify(result)}`)
+      }
+     
+      
       // store form data in localStorage before redirect
       localStorage.setItem('submittedFormData', JSON.stringify(formData))
-
+      setFormData(INITIAL_FORM_STATE)
       // redirect to success page 
       window.location.href = '/success'
+      console.log('form submitted successfully!')
 
-      if (response.ok) {
+     /** if (response.ok) {
         setFormData(INITIAL_FORM_STATE)
         console.log('Form submitted successfully!')
       } else {
         throw new Error("Submission failed." + JSON.stringify(result))
-      }
+      } */
 
     } catch (err) {
       console.error('Submission error:', err)
