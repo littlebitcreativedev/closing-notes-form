@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { navigate } from 'gatsby'
 
 import Layout from "../components/layout.component.jsx"
 import DeliveryMetrics from "../components/delivery-metrics.component.jsx"
@@ -49,6 +50,16 @@ const INITIAL_FORM_STATE = {
 
 const IndexPage = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_STATE)
+
+  const [isBrowser, setIsBrowser] = useState(false)
+
+  useEffect(() => {
+    setIsBrowser(true)
+  }, [])
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  
 
     const handleDeliveryMetricsChange = (event) => {
       setFormData(prevState => ({
@@ -103,14 +114,11 @@ const IndexPage = () => {
     ].join('\n');
   };
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     setIsSubmitting(true)
-
-
-    try {
+  
+  try {
 
     const formattedData = [
       [
@@ -149,20 +157,13 @@ const IndexPage = () => {
         throw new Error(`submission failed: ${JSON.stringify(result)}`)
       }
      
-      
-      // store form data in localStorage before redirect
-      localStorage.setItem('submittedFormData', JSON.stringify(formData))
-      setFormData(INITIAL_FORM_STATE)
-      // redirect to success page 
-      window.location.href = '/success'
-      console.log('form submitted successfully!')
-
-     /** if (response.ok) {
+      if (isBrowser) {
+         // store form data in localStorage before redirect
+        localStorage.setItem('submittedFormData', JSON.stringify(formData))
         setFormData(INITIAL_FORM_STATE)
-        console.log('Form submitted successfully!')
-      } else {
-        throw new Error("Submission failed." + JSON.stringify(result))
-      } */
+        // redirect to success page 
+        navigate('/success')
+      } 
 
     } catch (err) {
       console.error('Submission error:', err)
@@ -171,6 +172,7 @@ const IndexPage = () => {
       setIsSubmitting(false)
     }
     console.log('Form Submited', formData)
+  
   }
 
   return (
