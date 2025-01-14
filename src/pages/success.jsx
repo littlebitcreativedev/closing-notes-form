@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from "react"
 import { Link } from 'gatsby'
+import { getStorageItem, removeStorageItem } from "../utils/browserStorage"
 import Layout from "../components/layout.component"
 
 const SuccessPage = () => {
-    const [submittedData, setSubmittedData] = useState(null)
-    const [isLoading, setIsLoading] = useState(true)
+    const [pageState, setPageState] = useState({
+        isLoading: true,
+        submittedData: null
+    })
 
     useEffect(() => {
-        // Move localStorage operations into useEffect
-        try {
-            const savedData = window?.localStorage?.getItem('submittedFormData')
-            if (savedData) {
-                setSubmittedData(JSON.parse(savedData))
-                window?.localStorage?.removeItem('submittedFormData')
+        // Wrap in setTimeout to ensure it runs after initial render
+        setTimeout(() => {
+            const data = getStorageItem('submittedFormData')
+            if (data) {
+                removeStorageItem('submittedFormData')
             }
-        } catch (error) {
-            console.error('Error accessing localStorage:', error)
-        } finally {
-            setIsLoading(false)
-        }
+            setPageState({
+                isLoading: false,
+                submittedData: data
+            })
+        }, 0)
     }, [])
 
     const renderListItems = (items) => {
@@ -31,7 +33,7 @@ const SuccessPage = () => {
             ))
     }
 
-    if (isLoading) {
+    if (pageState.isLoading) {
         return (
             <Layout>
                 <div className="text-center py-10">
@@ -41,7 +43,7 @@ const SuccessPage = () => {
         )
     }
 
-    if (!submittedData) {
+    if (!pageState.submittedData) {
         return (
             <Layout>
                 <div className="text-center py-10">
@@ -59,59 +61,59 @@ const SuccessPage = () => {
             <div className="success-container py-10">
                 <p className="font-bold mb-4">Submission Successful!</p>
                 <div className="deliver-metrics mb-4">
-                    <p>{submittedData?.deliveryMetrics?.date || ''} - CLOSING NOTES</p>
+                    <p>{pageState?.submittedData?.deliveryMetrics?.date || ''} - CLOSING NOTES</p>
                     <br />
-                    <p>Delivered: {submittedData?.deliveryMetrics?.delivered || ''}</p>
-                    <p>Routes: {submittedData?.deliveryMetrics?.routes || ''}</p>
-                    <p>Returned: {submittedData?.deliveryMetrics?.returned || ''}</p>
+                    <p>Delivered: {pageState?.submittedData?.deliveryMetrics?.delivered || ''}</p>
+                    <p>Routes: {pageState?.submittedData?.deliveryMetrics?.routes || ''}</p>
+                    <p>Returned: {pageState?.submittedData?.deliveryMetrics?.returned || ''}</p>
                 </div>
                 <div className="rescue-metrics mb-4">
-                    <p>Number of rescuers: {submittedData?.rescueMetrics?.["rescuer-count"] || ''}</p>
+                    <p>Number of rescuers: {pageState?.submittedData?.rescueMetrics?.["rescuer-count"] || ''}</p>
                     <p>List rescuers:</p>
                     <div className="mb-4">
-                        {renderListItems(submittedData?.rescueMetrics?.['rescuer-list'])}
+                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['rescuer-list'])}
                     </div>
                     
                     <p>Rescues for OT support:</p>
                     <div className="mb-4">
-                        {renderListItems(submittedData?.rescueMetrics?.['support-list'])}
+                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['support-list'])}
                     </div>
                    
                     <p>Flex + rescue:</p>
                     <div className="mb-4">
-                        {renderListItems(submittedData?.rescueMetrics?.['flex-list'])}
+                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['flex-list'])}
                     </div>
                     
                     <p>Split + rescue:</p>
                     <div className="mb-4">
-                        {renderListItems(submittedData?.rescueMetrics?.['split-list'])}
+                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['split-list'])}
                     </div>
                 </div>
                 <div className="incident-injuries mb-4">
                     <p>Incidents/Injuries:</p>
-                    <p>{submittedData?.incidentInjuries?.["incident-injuries"] || ''}</p>
+                    <p>{pageState?.submittedData?.incidentInjuries?.["incident-injuries"] || ''}</p>
                 </div>
                 <div className="closing-metrics mb-4">
                     <p>Rescued:</p>
                     <div className="mb-4">
-                        {renderListItems(submittedData?.rescueMetrics?.['rescued-list'])}
+                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['rescued-list'])}
                     </div>
-                    <p>Last driver: {submittedData?.closingMetrics?.["last-driver"] || ''}</p>
+                    <p>Last driver: {pageState?.submittedData?.closingMetrics?.["last-driver"] || ''}</p>
                 </div>
                 <div className="equipment-counts mb-4">
                     <p>Equipment counts:</p>
-                    <p>Phones: {submittedData?.equipmentCounts?.phones || ''}</p>
-                    <p>Powerbanks: {submittedData?.equipmentCounts?.powerbanks || ''}</p>
-                    <p>EDV Fobs: {submittedData?.equipmentCounts?.["edv-fobs"] || ''}</p>
-                    <p>Apt. Fobs: {submittedData?.equipmentCounts?.["apartment-fobs"] || ''}</p>
-                    <p>Gas Cards: {submittedData?.equipmentCounts?.["gas-cards"] || ''}</p>
-                    <p>Rental Keys: {submittedData?.equipmentCounts?.["rental-keys"] || ''}</p>
+                    <p>Phones: {pageState?.submittedData?.equipmentCounts?.phones || ''}</p>
+                    <p>Powerbanks: {pageState?.submittedData?.equipmentCounts?.powerbanks || ''}</p>
+                    <p>EDV Fobs: {pageState?.submittedData?.equipmentCounts?.["edv-fobs"] || ''}</p>
+                    <p>Apt. Fobs: {pageState?.submittedData?.equipmentCounts?.["apartment-fobs"] || ''}</p>
+                    <p>Gas Cards: {pageState?.submittedData?.equipmentCounts?.["gas-cards"] || ''}</p>
+                    <p>Rental Keys: {pageState?.submittedData?.equipmentCounts?.["rental-keys"] || ''}</p>
                 </div>
                 <div className="extra-notes mb-4">
                     <p>Extra:</p>
-                    <p className="mb-4">{submittedData?.extraNotes?.["extra-notes"] || ''}</p>
+                    <p className="mb-4">{pageState?.submittedData?.extraNotes?.["extra-notes"] || ''}</p>
                    
-                    <p>Submitted by: {submittedData?.extraNotes?.["submitted-by"] || ''}</p>
+                    <p>Submitted by: {pageState?.submittedData?.extraNotes?.["submitted-by"] || ''}</p>
                 </div>
                 <Link to="/" className="text-lime-500 hover:text-lime-600 mt-4">
                     Return to form

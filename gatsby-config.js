@@ -15,4 +15,7 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-plugin-react-helmet',
   ],
+  flags: {
+    DEV_SSR: false,
+  }
 }
