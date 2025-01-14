@@ -1,27 +1,37 @@
 import React, { useState, useEffect } from "react"
 import { Link } from 'gatsby'
-
 import Layout from "../components/layout.component"
 
 const SuccessPage = () => {
     const [submittedData, setSubmittedData] = useState(null)
-    const [isBrowser, setIsBrowser] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        setIsBrowser(true)
-        if (typeof window !== 'undefined') {
-            // retrieve data from localStorage
-            const saveData = localStorage.getItem('submittedFormData')
-            if (saveData) {
-                setSubmittedData(JSON.parse(saveData))
-                // clear data fom localStorage
-                window.localStorage.removeItem('submittedFormData')
+        // Move localStorage operations into useEffect
+        try {
+            const savedData = window?.localStorage?.getItem('submittedFormData')
+            if (savedData) {
+                setSubmittedData(JSON.parse(savedData))
+                window?.localStorage?.removeItem('submittedFormData')
             }
+        } catch (error) {
+            console.error('Error accessing localStorage:', error)
+        } finally {
+            setIsLoading(false)
         }
-       
     }, [])
 
-    if (!isBrowser) {
+    const renderListItems = (items) => {
+        if (!items) return null
+        return items
+            .split('\n')
+            .filter(item => item.trim() !== '')
+            .map((item, index) => (
+                <p key={index}>{item}</p>
+            ))
+    }
+
+    if (isLoading) {
         return (
             <Layout>
                 <div className="text-center py-10">
@@ -44,16 +54,6 @@ const SuccessPage = () => {
         )
     }
 
-    const renderListItems = (items) => {
-        if (!items) return null;
-        return items
-            .split('\n')
-            .filter(item => item.trim() !== '')
-            .map((item, index) => (
-                <p key={index}>{item}</p>
-            ))
-    }
-
     return (
         <Layout>
             <div className="success-container py-10">
@@ -70,13 +70,6 @@ const SuccessPage = () => {
                     <p>List rescuers:</p>
                     <div className="mb-4">
                         {renderListItems(submittedData?.rescueMetrics?.['rescuer-list'])}
-                    {/**{submittedData.rescueMetrics["rescuer-list"]
-                        .split('\n')
-                        .filter(rescuer => rescuer.trim() !== '')
-                        .map((rescuer, index) => (
-                            <p key={index}>{rescuer}</p>
-                        ))
-                    }*/}
                     </div>
                     
                     <p>Rescues for OT support:</p>
@@ -132,7 +125,6 @@ export default SuccessPage
 
 export const Head = () => (
     <>
-        <html lang="en" />
         <title>Submission Successful</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </>
