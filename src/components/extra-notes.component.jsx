@@ -31,16 +31,27 @@ return (
                     />
                 </div>
                 <div className="submitted-section">
-                <InputField
-                labelText="Submitted by"
-                inputName="submitted-by"
-                type="text"
-                helperText="Please type your name."
-                placeholderText="John"
-                value={metrics["submitted-by"]}
-                onChange={handleInputChange}
-                />
-            </div>
+                    <InputField
+                    labelText="Submitted by"
+                    inputName="submitted-by"
+                    type="text"
+                    helperText="Please type your name."
+                    placeholderText="John"
+                    value={metrics["submitted-by"]}
+                    onChange={handleInputChange}
+                    />
+                </div>
+                <div className="trigger-section">
+                    <InputField
+                    labelText="Send"
+                    inputName="trigger-word"
+                    type="text"
+                    helperText="Please type the word Send (it's case-sensitive)."
+                    placeholderText="Send"
+                    value={metrics["trigger-word"]}
+                    onChange={handleInputChange}
+                    />
+                </div>
             </div>
         </div>
 

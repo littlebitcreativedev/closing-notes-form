@@ -15,6 +15,12 @@ export default function Layout({children}) {
     return (
         <div className="bg-zinc-900 text-zinc-300 layout-component min-h-screen">
             <div className="container mx-auto px-4 w-full md:w-1/2">
+                <Helmet>
+                    <html lang="en" />
+                    <meta charSet="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <title>Your Site Title</title>
+                </Helmet>
                 <header className="py-5 md:py-10">
                 <div className="flex items-center gap-2 md:gap-4">
                         <StaticImage

@@ -44,22 +44,20 @@ const INITIAL_FORM_STATE = {
     extraNotes: {
       'extra-notes': "",
       'submitted-by': "",
+      'trigger-word': "",
     } 
 }
 
 
 const IndexPage = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_STATE)
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isBrowser, setIsBrowser] = useState(false)
 
   useEffect(() => {
     setIsBrowser(true)
   }, [])
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  
+ 
 
     const handleDeliveryMetricsChange = (event) => {
       setFormData(prevState => ({
@@ -136,7 +134,8 @@ const IndexPage = () => {
         String(formData.closingMetrics['last-driver'] || ''),
         formatEquipmentCounts(formData.equipmentCounts),
         String(formData.extraNotes['extra-notes'] || ''),
-        String(formData.extraNotes['submitted-by'] || '')
+        String(formData.extraNotes['submitted-by'] || ''),
+        String(formData.extraNotes['trigger-word'] || '')
       ]
     ]
 
