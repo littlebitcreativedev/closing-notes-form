@@ -46,7 +46,7 @@ return (
                     labelText="Send"
                     inputName="trigger-word"
                     type="text"
-                    helperText="Please type the word Send (it's case-sensitive)."
+                    helperText="Please type the word 'Send' to trigger our homie Hooker T Washington. (It's case-sensitive)."
                     placeholderText="Send"
                     value={metrics["trigger-word"]}
                     onChange={handleInputChange}

@@ -19,19 +19,23 @@ return (
                 {question}
               </legend>
               <div className="space-y-2 md:space-y-3">
-                  <div className="flex items-center">
+                  <div className="inline-flex items-center">
                     <input 
                     id={`${radioGroupName}-yes`}
                     type="radio" 
                     name={radioGroupName}
                     value="yes"
                     onChange={handleRadioChange}
-                    className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300"
+                    className="w-3 h-3 md:w-4 md:h-4 border-2 border-gray-300 
+                                     focus:ring-2 focus:ring-lime-500 focus:outline-none
+                                     text-lime-600 bg-transparent cursor-pointer
+                                     transition-all duration-200 ease-in-out ease-in-out
+                                     translate-y-[-3px]"
                     aria-label={`Yes - ${question}`}
                     />
                     <label 
                       htmlFor={`${radioGroupName}-yes`} 
-                      className="block ms-2 text-xs md:text-sm font-medium text-white">Yes</label>
+                      className="ml-2 text-xs md:text-sm font-medium text-white cursor-pointer select-none">Yes</label>
                   </div>
                   <div className="flex items-center">
                     <input 
@@ -40,7 +44,11 @@ return (
                       name={radioGroupName}
                       value="no"
                       onChange={handleRadioChange}
-                      className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300" 
+                      className="w-3 h-3 md:w-4 md:h-4 border-2 border-gray-300 
+                                     focus:ring-2 focus:ring-lime-500 focus:outline-none
+                                     text-lime-600 bg-transparent cursor-pointer
+                                     transition-all duration-200 ease-in-out ease-in-out
+                                     translate-y-[-3px]" 
                       aria-label={`No - ${question}`}
                     />
                     <label 
