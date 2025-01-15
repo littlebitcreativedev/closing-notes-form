@@ -52,13 +52,20 @@ const INITIAL_FORM_STATE = {
 const IndexPage = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_STATE)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  //const [isBrowser, setIsBrowser] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
- /** useEffect(() => {
-    setIsBrowser(true)
-  }, [])*/
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
  
-
+  if (!isClient) {
+        return (
+            <Layout>
+                <div>Loading...</div>
+            </Layout>
+        )
+    }
+    
     const handleDeliveryMetricsChange = (event) => {
       setFormData(prevState => ({
         ...prevState,
@@ -115,7 +122,9 @@ const IndexPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     setIsSubmitting(true)
-  
+    
+    if (typeof window === 'undefined') return
+    
     try {
 
         const formattedData = [
@@ -141,22 +150,24 @@ const IndexPage = () => {
 
         console.log('sending data:', formattedData)
 
-          const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formattedData)
-          })
+        if (isBrowser) {
+          try{
+            const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(formattedData)
+            })
 
-          const result = await response.json()
+            const result = await response.json()
 
           if (!response.ok) {
             console.log('Error response:', result)
             throw new Error(`submission failed: ${JSON.stringify(result)}`)
           }
-        
-          if (isBrowser && isStorageAvailable('localStorage')) {
+
+          if (isStorageAvailable('localStorage')) {
             // store form data in localStorage before redirect
             storage.local.setItem('submittedFormData', JSON.stringify(formData))
             //localStorage.setItem('submittedFormData', JSON.stringify(formData))
@@ -165,6 +176,11 @@ const IndexPage = () => {
             navigate('/success')
           } 
 
+          } catch (error) {
+            console.error('API Error:', error)
+            throw error
+          }
+        }
       } catch (err) {
         console.error('Submission error:', err)
         alert('Failed to submit form, Please try again.')
@@ -173,12 +189,6 @@ const IndexPage = () => {
       }
       console.log('Form Submited', formData)
   
-  }
-
-  const renderForm = () => {
-    if (!isBrowser) {
-      return null
-    }
   }
 
   return (

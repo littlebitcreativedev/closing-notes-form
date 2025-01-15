@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StaticImage } from 'gatsby-plugin-image'
 import { Helmet } from 'react-helmet'
 
 
 import "./layout.css"
 
-if ('ontouchstart' in document.documentElement) {
-    document.body.style.cursor = 'pointer';
-  }
 
 export default function Layout({children}) {
+    const [isMounted, setIsMounted] = useState(false)
 
+    useEffect(() => {
+        setIsMounted(true)
+        // Move the touch check inside useEffect
+        if (typeof document !== 'undefined' && 'ontouchstart' in document.documentElement) {
+            document.body.style.cursor = 'pointer'
+        }
+    }, [])
+
+
+    if (!isMounted) {
+        return (
+        <div className="min-h-screen bg-white dark:bg-gray-900">
+            <div className="container mx-auto px-4 py-8">
+            {children}
+            </div>
+        </div>
+        )
+    }
 
     return (
         <div className="bg-zinc-900 text-zinc-300 layout-component min-h-screen">
@@ -32,10 +48,11 @@ export default function Layout({children}) {
                             className="rounded-full md:w-[50px] md:h-[50px]" // Optional: if you want rounded corners
                         />
                         <h1 className='text-3xl'>Closing Notes</h1>
+                        {isMounted}
                     </div>
                 </header>
                 <main className="px-2 md:px-0">
-                    <body className="bg-zinc-900">{children}</body>
+                    {children}
                 </main>
                 <footer className="py-5 md:py-10 text-center text-xs md:text-sm">© {new Date().getFullYear()} Built by
                     {` `} LittleBit Creative Dev.
