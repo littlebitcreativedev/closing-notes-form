@@ -9,30 +9,37 @@ const SuccessPage = () => {
         isLoading: false,
         submittedData: {
             deliveryMetrics: {
-                date: '',
-                delivered: '',
-                routes: '',
-                returned: ''
+            date: "",
+            delivered: "",
+            routes: "",
+            returned: "",
             },
             rescueMetrics: {
-                'rescuer-count': '',
-                'rescuer-list': '',
-                'support-list': '',
-                'flex-list': '',
-                'split-list': ''
-            },
+            'rescuer-count': "",
+            'rescuer-list': "",
+            'support-list': "",
+            'flex-list': "",
+            'split-list': "",
+            },  
+            incidentInjuries: {
+            'incident-injuries': "",
+            },  
+            closingMetrics: {
+            'rescued-drivers': "",
+            'last-driver': "",
+            },        
             equipmentCounts: {
-                phones: '',
-                powerbanks: '',
-                'edv-fobs': '',
-                'apartment-fobs': '',
-                'gas-cards': '',
-                'rental-keys': ''
-            },
+            phones: "",
+            powerbanks: "",
+            'edv-fobs': "",
+            'apartment-fobs': "",
+            'gas-cards': "",
+            'rental-keys': "",
+            },  
             extraNotes: {
-                'extra-notes': '',
-                'submitted-by': ''
-            }
+            'extra-notes': "",
+            'submitted-by': "",
+            } 
         }
     }
     const [pageState, setPageState] = useState(defaultState)

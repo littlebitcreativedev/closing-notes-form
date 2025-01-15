@@ -158,7 +158,7 @@ const IndexPage = () => {
         
           if (isBrowser && isStorageAvailable('localStorage')) {
             // store form data in localStorage before redirect
-            storage.local.setItem('submittedFormData', formData)
+            storage.local.setItem('submittedFormData', JSON.stringify(formData))
             //localStorage.setItem('submittedFormData', JSON.stringify(formData))
             setFormData(INITIAL_FORM_STATE)
             // redirect to success page 
