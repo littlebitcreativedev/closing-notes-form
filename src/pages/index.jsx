@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { navigate } from 'gatsby'
+import { isBrowser, storage, isStorageAvailable } from "../utils/browserStorage.js"
 
 import Layout from "../components/layout.component.jsx"
 import DeliveryMetrics from "../components/delivery-metrics.component.jsx"
@@ -48,15 +49,14 @@ const INITIAL_FORM_STATE = {
     } 
 }
 
-
 const IndexPage = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_STATE)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isBrowser, setIsBrowser] = useState(false)
+  //const [isBrowser, setIsBrowser] = useState(false)
 
-  useEffect(() => {
+ /** useEffect(() => {
     setIsBrowser(true)
-  }, [])
+  }, [])*/
  
 
     const handleDeliveryMetricsChange = (event) => {
@@ -116,62 +116,69 @@ const IndexPage = () => {
     event.preventDefault()
     setIsSubmitting(true)
   
-  try {
+    try {
 
-    const formattedData = [
-      [
-        String(formData.deliveryMetrics.date || ''),
-        String(formData.deliveryMetrics.delivered || ''),
-        String(formData.deliveryMetrics.routes || ''),
-        String(formData.deliveryMetrics.returned || ''),
-        String(formData.rescueMetrics['rescuer-count'] || ''),
-        String(formData.rescueMetrics['rescuer-list'] || ''),
-        String(formData.rescueMetrics['support-list'] || ''),
-        String(formData.rescueMetrics['flex-list'] || ''),
-        String(formData.rescueMetrics['split-list'] || ''),
-        String(formData.incidentInjuries['incident-injuries'] || ''),
-        String(formData.closingMetrics['rescued-drivers'] || ''),
-        String(formData.closingMetrics['last-driver'] || ''),
-        formatEquipmentCounts(formData.equipmentCounts),
-        String(formData.extraNotes['extra-notes'] || ''),
-        String(formData.extraNotes['submitted-by'] || ''),
-        String(formData.extraNotes['trigger-word'] || '')
-      ]
-    ]
+        const formattedData = [
+          [
+            String(formData.deliveryMetrics.date || ''),
+            String(formData.deliveryMetrics.delivered || ''),
+            String(formData.deliveryMetrics.routes || ''),
+            String(formData.deliveryMetrics.returned || ''),
+            String(formData.rescueMetrics['rescuer-count'] || ''),
+            String(formData.rescueMetrics['rescuer-list'] || ''),
+            String(formData.rescueMetrics['support-list'] || ''),
+            String(formData.rescueMetrics['flex-list'] || ''),
+            String(formData.rescueMetrics['split-list'] || ''),
+            String(formData.incidentInjuries['incident-injuries'] || ''),
+            String(formData.closingMetrics['rescued-drivers'] || ''),
+            String(formData.closingMetrics['last-driver'] || ''),
+            formatEquipmentCounts(formData.equipmentCounts),
+            String(formData.extraNotes['extra-notes'] || ''),
+            String(formData.extraNotes['submitted-by'] || ''),
+            String(formData.extraNotes['trigger-word'] || '')
+          ]
+        ]
 
-    console.log('sending data:', formattedData)
+        console.log('sending data:', formattedData)
 
-      const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formattedData)
-      })
+          const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formattedData)
+          })
 
-      const result = await response.json()
+          const result = await response.json()
 
-      if (!response.ok) {
-        console.log('Error response:', result)
-        throw new Error(`submission failed: ${JSON.stringify(result)}`)
+          if (!response.ok) {
+            console.log('Error response:', result)
+            throw new Error(`submission failed: ${JSON.stringify(result)}`)
+          }
+        
+          if (isBrowser && isStorageAvailable('localStorage')) {
+            // store form data in localStorage before redirect
+            storage.local.setItem('submittedFormData', formData)
+            //localStorage.setItem('submittedFormData', JSON.stringify(formData))
+            setFormData(INITIAL_FORM_STATE)
+            // redirect to success page 
+            navigate('/success')
+          } 
+
+      } catch (err) {
+        console.error('Submission error:', err)
+        alert('Failed to submit form, Please try again.')
+      } finally {
+        setIsSubmitting(false)
       }
-     
-      if (isBrowser) {
-         // store form data in localStorage before redirect
-        localStorage.setItem('submittedFormData', JSON.stringify(formData))
-        setFormData(INITIAL_FORM_STATE)
-        // redirect to success page 
-        navigate('/success')
-      } 
-
-    } catch (err) {
-      console.error('Submission error:', err)
-      alert('Failed to submit form, Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-    console.log('Form Submited', formData)
+      console.log('Form Submited', formData)
   
+  }
+
+  const renderForm = () => {
+    if (!isBrowser) {
+      return null
+    }
   }
 
   return (

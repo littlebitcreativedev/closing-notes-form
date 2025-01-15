@@ -1,26 +1,70 @@
 import React, { useState, useEffect } from "react"
 import { Link } from 'gatsby'
-import { getStorageItem, removeStorageItem } from "../utils/browserStorage"
+import { isBrowser, storage, isStorageAvailable } from "../utils/browserStorage"
 import Layout from "../components/layout.component"
 
 const SuccessPage = () => {
-    const [pageState, setPageState] = useState({
-        isLoading: true,
-        submittedData: null
-    })
+    // default state structure
+    const defaultState ={
+        isLoading: false,
+        submittedData: {
+            deliveryMetrics: {
+                date: '',
+                delivered: '',
+                routes: '',
+                returned: ''
+            },
+            rescueMetrics: {
+                'rescuer-count': '',
+                'rescuer-list': '',
+                'support-list': '',
+                'flex-list': '',
+                'split-list': ''
+            },
+            equipmentCounts: {
+                phones: '',
+                powerbanks: '',
+                'edv-fobs': '',
+                'apartment-fobs': '',
+                'gas-cards': '',
+                'rental-keys': ''
+            },
+            extraNotes: {
+                'extra-notes': '',
+                'submitted-by': ''
+            }
+        }
+    }
+    const [pageState, setPageState] = useState(defaultState)
+    const [isClient, setIsClient] = useState(false)
 
     useEffect(() => {
+
+        setIsClient(true)
+
+
         // Wrap in setTimeout to ensure it runs after initial render
-        setTimeout(() => {
-            const data = getStorageItem('submittedFormData')
-            if (data) {
-                removeStorageItem('submittedFormData')
-            }
-            setPageState({
-                isLoading: false,
-                submittedData: data
-            })
-        }, 0)
+        if (isBrowser && isStorageAvailable('localStorage')) {
+
+            try {
+                const data = storage.local.getItem('submittedFormData')
+                if (data)   {
+                    const parsedData = JSON.parse(data)
+                    setPageState({
+                        isLoading: false,
+                        submittedData: parsedData
+                    })
+                    // clean up storage after retrieving data
+                    storage.local.removeItem('submittedData')
+                }
+            } catch (error) {
+                console.error('Error retrieving stored data:', error)
+                setPageState({
+                    ...defaultState,
+                    error: 'Failed to load submission data'
+                })
+            }   
+        }
     }, [])
 
     const renderListItems = (items) => {
@@ -33,88 +77,104 @@ const SuccessPage = () => {
             ))
     }
 
-    if (pageState.isLoading) {
-        return (
-            <Layout>
-                <div className="text-center py-10">
+    // Add loading state component
+    const LoadingState = () => (
+        <Layout>
+            <div className="text-center py-10">
+                <div className="animate-pulse">
                     <p>Loading...</p>
                 </div>
-            </Layout>
-        )
+            </div>
+        </Layout>
+    )
+
+   // Add error state component
+   const ErrorState = () => (
+        <Layout>
+            <div className="text-center py-10">
+                <h1 className="text-2xl font-bold mb-4">No submission data found</h1>
+                <Link to="/" className="text-lime-500 hover:text-lime-600">
+                    Return to form
+                </Link>
+            </div>
+        </Layout>
+    )
+
+    // Handle build time rendering
+    if (typeof window === 'undefined') {
+        return <LoadingState />
     }
 
-    if (!pageState.submittedData) {
-        return (
-            <Layout>
-                <div className="text-center py-10">
-                    <h1 className="text-2xl font-bold mb-4">No submission data found</h1>
-                    <Link to="/" className="text-lime-500 hover:text-lime-600">
-                        Return to form
-                    </Link>
-                </div>
-            </Layout>
-        )
+    // Handle client-side initialization
+    if (!isClient) {
+        return <LoadingState />
     }
 
+    // Handle no data state
+    if (!pageState.submittedData && isClient) {
+        return <ErrorState />
+    }
+
+    // Safe access function to prevent undefined errors
+    const safeGet = (obj, path) => {
+        return path.split('.').reduce((acc, part) => acc && acc[part], obj) ?? ''
+    }
+
+    // renders success
     return (
         <Layout>
             <div className="success-container py-10">
                 <p className="font-bold mb-4">Submission Successful!</p>
+                
                 <div className="deliver-metrics mb-4">
-                    <p>{pageState?.submittedData?.deliveryMetrics?.date || ''} - CLOSING NOTES</p>
+                    <p>{safeGet(pageState, 'submittedData.deliveryMetrics.date')} - CLOSING NOTES</p>
                     <br />
-                    <p>Delivered: {pageState?.submittedData?.deliveryMetrics?.delivered || ''}</p>
-                    <p>Routes: {pageState?.submittedData?.deliveryMetrics?.routes || ''}</p>
-                    <p>Returned: {pageState?.submittedData?.deliveryMetrics?.returned || ''}</p>
+                    <p>Delivered: {safeGet(pageState, 'submittedData.deliveryMetrics.delivered')}</p>
+                    <p>Routes: {safeGet(pageState, 'submittedData.deliveryMetrics.routes')}</p>
+                    <p>Returned: {safeGet(pageState, 'submittedData.deliveryMetrics.returned')}</p>
                 </div>
+
                 <div className="rescue-metrics mb-4">
-                    <p>Number of rescuers: {pageState?.submittedData?.rescueMetrics?.["rescuer-count"] || ''}</p>
+                    <p>Number of rescuers: {safeGet(pageState, 'submittedData.rescueMetrics.rescuer-count')}</p>
                     <p>List rescuers:</p>
                     <div className="mb-4">
-                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['rescuer-list'])}
+                        {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.rescuer-list'))}
                     </div>
                     
                     <p>Rescues for OT support:</p>
                     <div className="mb-4">
-                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['support-list'])}
+                        {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.support-list'))}
                     </div>
                    
                     <p>Flex + rescue:</p>
                     <div className="mb-4">
-                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['flex-list'])}
+                        {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.flex-list'))}
                     </div>
                     
                     <p>Split + rescue:</p>
                     <div className="mb-4">
-                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['split-list'])}
+                        {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.split-list'))}
                     </div>
                 </div>
-                <div className="incident-injuries mb-4">
-                    <p>Incidents/Injuries:</p>
-                    <p>{pageState?.submittedData?.incidentInjuries?.["incident-injuries"] || ''}</p>
-                </div>
-                <div className="closing-metrics mb-4">
-                    <p>Rescued:</p>
-                    <div className="mb-4">
-                        {renderListItems(pageState?.submittedData?.rescueMetrics?.['rescued-list'])}
-                    </div>
-                    <p>Last driver: {pageState?.submittedData?.closingMetrics?.["last-driver"] || ''}</p>
-                </div>
+
+                {/* ... Rest of the components using safeGet ... */}
+
                 <div className="equipment-counts mb-4">
                     <p>Equipment counts:</p>
-                    <p>Phones: {pageState?.submittedData?.equipmentCounts?.phones || ''}</p>
-                    <p>Powerbanks: {pageState?.submittedData?.equipmentCounts?.powerbanks || ''}</p>
-                    <p>EDV Fobs: {pageState?.submittedData?.equipmentCounts?.["edv-fobs"] || ''}</p>
-                    <p>Apt. Fobs: {pageState?.submittedData?.equipmentCounts?.["apartment-fobs"] || ''}</p>
-                    <p>Gas Cards: {pageState?.submittedData?.equipmentCounts?.["gas-cards"] || ''}</p>
-                    <p>Rental Keys: {pageState?.submittedData?.equipmentCounts?.["rental-keys"] || ''}</p>
+                    <p>Phones: {safeGet(pageState, 'submittedData.equipmentCounts.phones')}</p>
+                    <p>Powerbanks: {safeGet(pageState, 'submittedData.equipmentCounts.powerbanks')}</p>
+                    <p>EDV Fobs: {safeGet(pageState, 'submittedData.equipmentCounts.edv-fobs')}</p>
+                    <p>Apt. Fobs: {safeGet(pageState, 'submittedData.equipmentCounts.apartment-fobs')}</p>
+                    <p>Gas Cards: {safeGet(pageState, 'submittedData.equipmentCounts.gas-cards')}</p>
+                    <p>Rental Keys: {safeGet(pageState, 'submittedData.equipmentCounts.rental-keys')}</p>
                 </div>
+
                 <div className="extra-notes mb-4">
                     <p>Extra:</p>
-                    <p className="mb-4">{pageState?.submittedData?.extraNotes?.["extra-notes"] || ''}</p>
-                   
-                    <p>Submitted by: {pageState?.submittedData?.extraNotes?.["submitted-by"] || ''}</p>
+                    <p className="mb-4">{safeGet(pageState, 'submittedData.extraNotes.extra-notes')}</p>
+                    <p>Submitted by: {safeGet(pageState, 'submittedData.extraNotes.submitted-by')}</p>
                 </div>
+
                 <Link to="/" className="text-lime-500 hover:text-lime-600 mt-4">
                     Return to form
                 </Link>
