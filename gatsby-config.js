@@ -13,11 +13,7 @@ module.exports = {
 
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: "Closing Notes Form", 
-        short_name: "Closing Notes", 
-        start_url: "/",
-        icon: "src/images/favicon.ico"  // Path to your favicon image
-
+        icon: "src/images/favicon-32x32.png"  // Path to your favicon image
       }
     },
     'gatsby-plugin-postcss',
