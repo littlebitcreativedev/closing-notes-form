@@ -42,10 +42,8 @@ export default function Layout({children}) {
                         <StaticImage
                             src="../images/myriadfleet logo_transparent.png" // Update with your image path
                             alt="Logo"
-                            placeholder="blurred"
-                            width={40} // Adjust size as needed
-                            height={40} // Adjust size as needed
-                            className="rounded-full md:w-[50px] md:h-[50px]" // Optional: if you want rounded corners
+                            width={60} // Adjust size as needed
+                            height={60} // Adjust size as needed
                         />
                         <h1 className='text-3xl'>Closing Notes</h1>
                         {isMounted}

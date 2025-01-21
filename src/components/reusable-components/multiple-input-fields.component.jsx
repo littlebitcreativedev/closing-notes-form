@@ -20,23 +20,33 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
         setInputs(updatedInputs); 
         
         // Combine all values
-        const combinedValues = updatedInputs
+       /* const combinedValues = updatedInputs
             .map(input => input.value)
             .filter(value => value !== '')
-            .join('\n');
-            
-        onChange({
-            target: {
-                name: inputName,
-                value: combinedValues || ''
-            }
-        });
+            .join('\n'); */
+
+        // combine all values after ensuring inputs are preserved
+        const combinedValues = updatedInputs
+        .map(input => input.value)
+        .filter(Boolean)
+        .join('\n')
+        
+        if (onChange) {
+            onChange({
+                target: {
+                    name: inputName,
+                    value: combinedValues || ''
+                }
+            });
+        }
     }
 
     const addInput = () => {
-        setInputs([
-            ...inputs,
-            { id: inputs.length, value: '' }
+        const newID = Math.max(...inputs.map(input => input.id)) + 1
+
+        setInputs(prevInputs => [
+            ...prevInputs,
+            { id: newID, value: '' }
         ]);
     }
 
@@ -61,19 +71,14 @@ const MultipleInputFields = ({initialData = "", onChange, type, labelText, input
 
     // Initialize from existing data
     useEffect(() => {
-        if (initialData) {
+        if (initialData && !inputs.some(input => input.value)) {
             const existingValues = initialData.split('\n');
             const initializedInputs = existingValues.map((value, index) => ({
                 id: index,
-                value: value
+                value: value || ''
             }));
-            setInputs(initializedInputs);
-        } else {
-            setInputs([{
-                id: 0,
-                value: ''
-            }])
-        }
+            setInputs(initializedInputs.length ? initializedInputs : [{ id: 0, value: ''}]);
+        } 
     }, [initialData]);
 
     return (
