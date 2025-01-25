@@ -163,8 +163,19 @@ const SuccessPage = () => {
                         {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.split-list'))}
                     </div>
                 </div>
-
-                {/* ... Rest of the components using safeGet ... */}
+                <div className="incident-injuries mb-4">
+                    <p>Incident/Injuries:</p>
+                    <p className="mb-4">{safeGet(pageState, 'submittedData.incidentInjuries.incident-injuries')}</p>
+                </div>
+                <div className="closing-metrics mb-4">
+                    <p>Rescued drivers:</p>
+                    <div className="mb-4">
+                        {renderListItems(safeGet(pageState, 'submittedData.closingMetrics.rescued-drivers'))}
+                    </div>
+                    <div className="last-driver mb-4">
+                    <p>Last driver: {safeGet(pageState, 'submittedData.closingMetrics.last-driver')}</p>
+                    </div>
+                </div>
 
                 <div className="equipment-counts mb-4">
                     <p>Equipment counts:</p>
@@ -179,7 +190,6 @@ const SuccessPage = () => {
                 <div className="extra-notes mb-4">
                     <p>Extra:</p>
                     <p className="mb-4">{safeGet(pageState, 'submittedData.extraNotes.extra-notes')}</p>
-                    <p>Submitted by: {safeGet(pageState, 'submittedData.extraNotes.submitted-by')}</p>
                 </div>
 
                 <Link to="/" className="text-lime-500 hover:text-lime-600 mt-4">

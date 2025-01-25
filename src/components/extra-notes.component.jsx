@@ -41,6 +41,7 @@ return (
                     onChange={handleInputChange}
                     />
                 </div>
+               {/** 
                 <div className="trigger-section">
                     <InputField
                     labelText="Send"
@@ -51,7 +52,8 @@ return (
                     value={metrics["trigger-word"]}
                     onChange={handleInputChange}
                     />
-                </div>
+                </div> 
+                */}  
             </div>
         </div>
 
