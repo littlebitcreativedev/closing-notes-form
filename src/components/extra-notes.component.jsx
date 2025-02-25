@@ -2,6 +2,7 @@ import React from "react"
 
 import TextareaField from "./reusable-components/textarea-field.component.jsx"
 import InputField from "./reusable-components/input-field.component.jsx"
+import RadioGroup from "./reusable-components/radio-group.component.jsx"
 
 const ExtraNotes = ({metrics, onChange}) => {
    
@@ -30,6 +31,33 @@ return (
                     onChange={handleInputChange}
                     />
                 </div>
+
+                <div className="vsa-container">
+                    <RadioGroup 
+                    question="Were any vans VSA'd tonight"
+                    labelText="VSA's tonight"
+                    inputName="vsa-vans"
+                    type="text"
+                    numberRows={6}
+                    placeholderText="EDV00"
+                    value={metrics["vsa-vans"] || ''}
+                    onChange={handleInputChange}
+                    />
+                </div>
+
+                <div className="grounded-container">
+                    <RadioGroup 
+                    question="Were any vans grounded"
+                    labelText="Grounded"
+                    inputName="grounded-vans"
+                    type="text"
+                    numberRows={6}
+                    placeholderText="EDV00"
+                    value={metrics["grounded-vans"] || ''}
+                    onChange={handleInputChange}
+                    />
+                </div>
+
                 <div className="submitted-section">
                     <InputField
                     labelText="Submitted by"

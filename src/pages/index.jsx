@@ -44,6 +44,8 @@ const INITIAL_FORM_STATE = {
     },  
     extraNotes: {
       'extra-notes': "",
+      'vsa-vans': "",
+      'grounded-vans': "",
       'submitted-by': "",
       'trigger-word': "",
     } 
@@ -143,6 +145,8 @@ const IndexPage = () => {
             String(formData.closingMetrics['last-driver'] || ''),
             formatEquipmentCounts(formData.equipmentCounts),
             String(formData.extraNotes['extra-notes'] || ''),
+            String(formData.extraNotes['vsa-vans'] || ''),
+            String(formData.extraNotes['grounded-vans'] || ''),
             String(formData.extraNotes['submitted-by'] || ''),
             String(formData.extraNotes['trigger-word'] || '')
           ]

@@ -35,7 +35,7 @@ export default function Layout({children}) {
                     <html lang="en" />
                     <meta charSet="utf-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
-                    <title>Your Site Title</title>
+                    <title>Closing Notes</title>
                 </Helmet>
                 <header className="py-5 md:py-10">
                 <div className="flex items-center gap-2 md:gap-4">

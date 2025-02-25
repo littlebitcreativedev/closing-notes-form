@@ -38,6 +38,8 @@ const SuccessPage = () => {
             },  
             extraNotes: {
             'extra-notes': "",
+            'vsa-vans': "",
+            'grounded-vans': "",
             'submitted-by': "",
             } 
         }
@@ -193,6 +195,16 @@ const SuccessPage = () => {
                     <p>Extra:</p>
                     <div className="mb-4">
                         {renderListItems(safeGet(pageState, 'submittedData.extraNotes.extra-notes'))}
+                    </div>
+
+                    <p>VSA'd tonight:</p>
+                    <div className="mb-4">
+                        {renderListItems(safeGet(pageState, 'submittedData.extraNotes.vsa-vans'))}
+                    </div>
+
+                    <p>Grounded:</p>
+                    <div className="mb-4">
+                        {renderListItems(safeGet(pageState, 'submittedData.extraNotes.grounded-vans'))}
                     </div>
                 </div>
 
