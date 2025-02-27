@@ -35,7 +35,7 @@ return (
                 <div className="vsa-container">
                     <RadioGroup 
                     question="Were any vans VSA'd tonight"
-                    labelText="VSA's tonight"
+                    labelText="VSA'd tonight"
                     inputName="vsa-vans"
                     type="text"
                     numberRows={6}
