@@ -38,8 +38,10 @@ const INITIAL_FORM_STATE = {
       phones: "",
       powerbanks: "",
       'edv-fobs': "",
+      'brightdrop-fobs': "",
       'apartment-fobs': "",
       'gas-cards': "",
+      'xlv-keys': "",
       'rental-keys': "",
     },  
     extraNotes: {
@@ -115,8 +117,10 @@ const IndexPage = () => {
       `Phones: ${equipmentCounts.phones || '0'}`,
       `Powerbanks: ${equipmentCounts.powerbanks || '0'}`,
       `EDV Fobs: ${equipmentCounts['edv-fobs'] || '0'}`,
+      `BD Fobs: ${equipmentCounts['brightdrop-fobs'] || '0'}`,
       `Apt. Fobs: ${equipmentCounts['apartment-fobs'] || '0'}`,
       `Gas Cards: ${equipmentCounts['gas-cards'] || '0'}`,
+      `XLV Keys: ${equipmentCounts['xlv-keys'] || '0'}`,
       `Rental Keys: ${equipmentCounts['rental-keys'] || '0'}`
     ].join('\n');
   };

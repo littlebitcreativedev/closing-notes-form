@@ -89,6 +89,28 @@ const EquipmentCounts = ({metrics, onChange}) => {
                 <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <label 
                         className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
+                        htmlFor="equipment-brightdrop-fobs">
+                        BD Fobs:
+                    </label>
+                    <input 
+                        className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 
+                        placeholder-zinc-400 text-white focus:ring-lime-500 
+                        focus:border-lime-500 block w-full p-2 md:p-2.5 text-sm md:text-base
+                        transition-all duration-200" 
+                        id="equipment-brightdrop-fobs"
+                        name="brightdrop-fobs"
+                        type="text"
+                        placeholder="e.g 23"
+                        value={metrics['brightdrop-fobs'] || ''}
+                        onChange={handleInputChange}
+                        aria-label="Brightdrop Fobs count"
+                        required
+                    />
+                </div>
+
+                <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <label 
+                        className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
                         htmlFor="equipment-apartment-fobs">
                         Apt. Fobs:
                     </label>
@@ -126,6 +148,28 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         value={metrics['gas-cards'] || ''}
                         onChange={handleInputChange}
                         aria-label="Gas Cards count"
+                        required
+                    />
+                </div>
+
+                <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                    <label 
+                        className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
+                        htmlFor="equipment-xlv-keys">
+                        XLV Keys:
+                    </label>
+                    <input 
+                        className="shadow-sm rounded-lg bg-zinc-700 border-zinc-600 
+                        placeholder-zinc-400 text-white focus:ring-lime-500 
+                        focus:border-lime-500 block w-full p-2 md:p-2.5 text-sm md:text-base
+                        transition-all duration-200" 
+                        id="equipment-xlv-keys"
+                        name="xlv-keys"
+                        type="text"
+                        placeholder="e.g 23"
+                        value={metrics['xlv-keys'] || ''}
+                        onChange={handleInputChange}
+                        aria-label="XLV Keys count"
                         required
                     />
                 </div>

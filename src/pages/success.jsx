@@ -32,8 +32,10 @@ const SuccessPage = () => {
             phones: "",
             powerbanks: "",
             'edv-fobs': "",
+            'brightdrop-fobs': "",
             'apartment-fobs': "",
             'gas-cards': "",
+            'xlv-keys': "",
             'rental-keys': "",
             },  
             extraNotes: {
@@ -186,8 +188,10 @@ const SuccessPage = () => {
                     <p>Phones: {safeGet(pageState, 'submittedData.equipmentCounts.phones')}</p>
                     <p>Powerbanks: {safeGet(pageState, 'submittedData.equipmentCounts.powerbanks')}</p>
                     <p>EDV Fobs: {safeGet(pageState, 'submittedData.equipmentCounts.edv-fobs')}</p>
+                    <p>BD Fobs: {safeGet(pageState, 'submittedData.equipmentCounts.brightdrop-fobs')}</p>
                     <p>Apt. Fobs: {safeGet(pageState, 'submittedData.equipmentCounts.apartment-fobs')}</p>
                     <p>Gas Cards: {safeGet(pageState, 'submittedData.equipmentCounts.gas-cards')}</p>
+                    <p>XLV Keys: {safeGet(pageState, 'submittedData.equipmentCounts.xlv-keys')}</p>
                     <p>Rental Keys: {safeGet(pageState, 'submittedData.equipmentCounts.rental-keys')}</p>
                 </div>
 

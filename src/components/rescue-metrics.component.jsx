@@ -59,7 +59,7 @@ return (
               placeholderText="e.g John (20 stops, 200 packages)"
               value={metrics["flex-list"] || ''}
               onChange={handleInputChange}
-              />
+              /> 
             </div> {/** closes flex container */}
             <div className="split-container">
               <RadioGroup
