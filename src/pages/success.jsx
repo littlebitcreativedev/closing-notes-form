@@ -20,7 +20,10 @@ const SuccessPage = () => {
             'support-list': "",
             'flex-list': "",
             'split-list': "",
-            },  
+            },
+            trainingMetrics: {
+            'ride-along': "",
+            } ,  
             incidentInjuries: {
             'incident-injuries': "",
             },  
@@ -165,6 +168,12 @@ const SuccessPage = () => {
                     <p>Split + rescue:</p>
                     <div className="mb-4">
                         {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.split-list'))}
+                    </div>
+                </div>
+                <div className="training-metrics mb-4">
+                    <p>Ride-alongs:</p>
+                    <div className="mb-4">
+                        {renderListItems(safeGet(pageState, 'submittedData.trainingMetrics.ride-along'))}
                     </div>
                 </div>
                 <div className="incident-injuries mb-4">

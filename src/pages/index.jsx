@@ -5,6 +5,7 @@ import { isBrowser, storage, isStorageAvailable } from "../utils/browserStorage.
 import Layout from "../components/layout.component.jsx"
 import DeliveryMetrics from "../components/delivery-metrics.component.jsx"
 import RescueMetrics from "../components/rescue-metrics.component.jsx"
+import TrainingMetrics from "../components/training-metrics.component.jsx"
 import IncidentReports from "../components/incident-reports.component.jsx"
 import ClosingMetrics from "../components/closing-metrics.component.jsx"
 import EquipmentCounts from "../components/equipment-counts.component.jsx"
@@ -26,7 +27,10 @@ const INITIAL_FORM_STATE = {
       'support-list': "",
       'flex-list': "",
       'split-list': "",
-    },  
+    },
+    trainingMetrics: {
+      'ride-along': "",
+    } ,
     incidentInjuries: {
       'incident-injuries': "",
     },  
@@ -81,6 +85,13 @@ const IndexPage = () => {
       setFormData(prevState => ({
         ...prevState,
         rescueMetrics: event
+      }))
+    }
+
+    const handleTrainingMetricsChange = (event) => {
+      setFormData(prevState => ({
+        ...prevState,
+        trainingMetrics: event
       }))
     }
 
@@ -144,6 +155,7 @@ const IndexPage = () => {
             String(formData.rescueMetrics['support-list'] || ''),
             String(formData.rescueMetrics['flex-list'] || ''),
             String(formData.rescueMetrics['split-list'] || ''),
+            String(formData.trainingMetrics['ride-along'] || ''),
             String(formData.incidentInjuries['incident-injuries'] || ''),
             String(formData.closingMetrics['rescued-drivers'] || ''),
             String(formData.closingMetrics['last-driver'] || ''),
@@ -209,6 +221,7 @@ const IndexPage = () => {
       >
         <DeliveryMetrics metrics={formData.deliveryMetrics} onChange={handleDeliveryMetricsChange} />
         <RescueMetrics metrics={formData.rescueMetrics} onChange={handleRescueMetricsChange} />
+        <TrainingMetrics metrics={formData.trainingMetrics} onChange={handleTrainingMetricsChange} />
         <IncidentReports metrics={formData.incidentInjuries} onChange={handleIncidentsChange} />
         <ClosingMetrics metrics={formData.closingMetrics} onChange={handleClosingMetricsChange} />
         <EquipmentCounts metrics={formData.equipmentCounts} onChange={handleEquipmentCountsChange} />
