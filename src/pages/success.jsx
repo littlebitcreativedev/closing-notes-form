@@ -11,6 +11,8 @@ const SuccessPage = () => {
             deliveryMetrics: {
             date: "",
             delivered: "",
+            'locker-pickups': "",
+            'cx-pickups': "",
             routes: "",
             returned: "",
             },
@@ -144,6 +146,8 @@ const SuccessPage = () => {
                     <p>{safeGet(pageState, 'submittedData.deliveryMetrics.date')} - CLOSING NOTES</p>
                     <br />
                     <p>Delivered: {safeGet(pageState, 'submittedData.deliveryMetrics.delivered')}</p>
+                    <p>Locker Pickups: {safeGet(pageState, 'submittedData.deliveryMetrics.locker-pickups')}</p>
+                    <p>CX Pickups: {safeGet(pageState, 'submittedData.deliveryMetrics.cx-pickups')}</p>
                     <p>Routes: {safeGet(pageState, 'submittedData.deliveryMetrics.routes')}</p>
                     <p>Returned: {safeGet(pageState, 'submittedData.deliveryMetrics.returned')}</p>
                 </div>

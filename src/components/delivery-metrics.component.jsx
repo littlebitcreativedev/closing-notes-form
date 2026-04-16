@@ -71,6 +71,28 @@ const DeliveryMetrics = ({metrics, onChange}) => {
                 </div>
                 <div className="metric-item">
                     <InputField 
+                        labelText="Locker Pickups"
+                        inputName="locker-pickups"
+                        type="number"
+                        placeholderText="e.g 10,000"
+                        helperText="How many locker pickups did we have today?"
+                        value={metrics["locker-pickups"]}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div className="metric-item">
+                    <InputField 
+                        labelText="CX Pickups"
+                        inputName="cx-pickups"
+                        type="number"
+                        placeholderText="e.g 10,000"
+                        helperText="How many customer pickups did we have today?"
+                        value={metrics["cx-pickups"]}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div className="metric-item">
+                    <InputField 
                         labelText="Routes"
                         inputName="routes"
                         type="number"

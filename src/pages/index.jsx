@@ -18,6 +18,8 @@ const INITIAL_FORM_STATE = {
     deliveryMetrics: {
       date: "",
       delivered: "",
+      'locker-pickups': "",
+      'cx-pickups': "",
       routes: "",
       returned: "",
     },
@@ -148,6 +150,8 @@ const IndexPage = () => {
           [
             String(formData.deliveryMetrics.date || ''),
             String(formData.deliveryMetrics.delivered || ''),
+            String(formData.deliveryMetrics['locker-pickups'] || ''),
+            String(formData.deliveryMetrics['cx-pickups'] || ''),
             String(formData.deliveryMetrics.routes || ''),
             String(formData.deliveryMetrics.returned || ''),
             String(formData.rescueMetrics['rescuer-count'] || ''),
