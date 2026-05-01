@@ -8,7 +8,7 @@ exports.handler = async (event) => {
   try {
     const rows = JSON.parse(event.body); // this will be your formattedData array
 
-    const auth = new google.auth.JWT({
+    const auth = new google.auth.GoogleAuth({
       email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
       key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
