@@ -2,10 +2,6 @@
   command = "gatsby build"
   publish = "public"
 
-[build.environment]
-  NODE_OPTIONS = "--openssl-legacy-provider"
-
-
 [dev]
   command = "gatsby develop"
 
@@ -13,4 +9,7 @@
   node_bundler = "esbuild"
 
 
+[build.environment]
+  NODE_OPTIONS = "--openssl-legacy-provider"
+  NODE_VERSION = "16"
 
