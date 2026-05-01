@@ -176,7 +176,7 @@ const IndexPage = () => {
 
         if (isBrowser) {
           try{
-            const response = await fetch('https://v1.nocodeapi.com/littlebitcreativedev/google_sheets/NnksMyGKwBJpzcJR?tabId=FormResponses', {
+            const response = await fetch('/.netlify/functions/submit-form', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
