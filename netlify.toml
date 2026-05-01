@@ -1,0 +1,12 @@
+[build]
+  command = "gatsby build"
+  publish = "public"
+
+[dev]
+  command = "gatsby develop"
+
+[functions]
+  node_bundler = "esbuild"
+
+[build.environment]
+  NODE_OPTIONS = "--openssl-legacy-provider"
