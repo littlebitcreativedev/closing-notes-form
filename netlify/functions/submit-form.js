@@ -10,9 +10,13 @@ exports.handler = async (event) => {
 
     console.log('email:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL)
     console.log('key exists:', !!process.env.GOOGLE_PRIVATE_KEY)
+    
     const auth = new google.auth.GoogleAuth({
-      email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      credentials: {
+        type: "service_account",
+        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      },
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
