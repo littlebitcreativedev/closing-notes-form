@@ -8,8 +8,3 @@
 [functions]
   node_bundler = "esbuild"
 
-
-[build.environment]
-  NODE_OPTIONS = "--openssl-legacy-provider"
-  NODE_VERSION = "16"
-
