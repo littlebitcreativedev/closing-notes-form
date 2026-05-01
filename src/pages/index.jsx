@@ -176,7 +176,7 @@ const IndexPage = () => {
 
         if (isBrowser) {
           try{
-            const response = await fetch('https://script.google.com/macros/s/AKfycbwDt4RSdXDLibRZguEm1mpiHlsfjfc3gphZYK2a3RKHANTGqOrQMRAGslYaBSUijMFo/exec', {
+            const response = await fetch('/.netlify/functions/submit-form', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(formattedData)
