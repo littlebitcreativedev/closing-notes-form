@@ -159,7 +159,7 @@ const SuccessPage = () => {
                         {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.rescuer-list'))}
                     </div>
                     
-                    <p>Rescues for OT support:</p>
+                    <p>Manager rescuers:</p>
                     <div className="mb-4">
                         {renderListItems(safeGet(pageState, 'submittedData.rescueMetrics.support-list'))}
                     </div>

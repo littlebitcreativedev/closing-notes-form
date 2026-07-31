@@ -24,7 +24,7 @@ return (
               inputName="rescuer-count"
               type="number"
               placeholderText="e.g 10"
-              helperText="How many rescuers did we have today?"
+              helperText="How many rescuers did we have today? (Include ONLY L1 - L4 DAs)"
               value={metrics["rescuer-count"] || ''}
               onChange={handleInputChange}
               />
@@ -39,8 +39,8 @@ return (
             </div> {/** closes rescuers container */}
             <div className="support-container">
               <RadioGroup
-              question="Did we have any rescues for OT support"
-              labelText="Rescues for OT support"
+              question="Did we have any managers rescue? (Includes L5 & L6 DAs)"
+              labelText="Manager rescuers"
               inputName="support-list"
               type="text"
               numberRows={6}
