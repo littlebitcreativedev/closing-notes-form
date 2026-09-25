@@ -37,6 +37,7 @@ return (
               placeholderText="e.g John (20 stops, 200 packages)"
               />
             </div> {/** closes rescuers container */}
+            {'support-list' in metrics && (
             <div className="support-container">
               <RadioGroup
               question="Did we have any managers rescue? (Includes L5 & L6 DAs)"
@@ -48,7 +49,9 @@ return (
               value={metrics["support-list"] || ''}
               onChange={handleInputChange}
               />
-            </div> {/** closes support container */}
+            </div> 
+            )}
+            {'flex-list' in metrics && (
             <div className="flex-container">
               <RadioGroup
               question="Did we have any Flex routes + rescue"
@@ -60,7 +63,9 @@ return (
               value={metrics["flex-list"] || ''}
               onChange={handleInputChange}
               /> 
-            </div> {/** closes flex container */}
+            </div>
+            )}
+            {'split-list' in metrics && (
             <div className="split-container">
               <RadioGroup
                 question="Did we have any Split routes + rescue"
@@ -72,7 +77,8 @@ return (
                 value={metrics["split-list"] || ''}
                 onChange={handleInputChange}
                 />
-              </div> {/** closes split container */}
+              </div>
+            )}
           </div>  
         </div> 
     )

@@ -63,7 +63,7 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         required
                     />
                 </div>
-
+                {'edv-fobs' in metrics && (
                 <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <label 
                         className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
@@ -85,7 +85,8 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         required
                     />
                 </div>
-
+                )}
+                {'brightdrop-fobs' in metrics && (
                 <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <label 
                         className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
@@ -107,7 +108,7 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         required
                     />
                 </div>
-
+                )}
                 <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <label 
                         className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
@@ -173,7 +174,7 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         required
                     />
                 </div>
-
+                {'rental-keys' in metrics && (
                 <div className="equipment-input-container flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                     <label 
                         className="text-xs md:text-sm font-medium text-white sm:nowrap sm:w-32" 
@@ -195,6 +196,7 @@ const EquipmentCounts = ({metrics, onChange}) => {
                         required
                     />
                 </div>
+                )}
             </div>
         </div>
     )

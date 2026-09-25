@@ -69,6 +69,7 @@ const DeliveryMetrics = ({metrics, onChange}) => {
                         onChange={handleInputChange}
                     />
                 </div>
+                {'locker-pickups' in metrics && (
                 <div className="metric-item">
                     <InputField 
                         labelText="Locker Pickups"
@@ -80,6 +81,8 @@ const DeliveryMetrics = ({metrics, onChange}) => {
                         onChange={handleInputChange}
                     />
                 </div>
+                )}
+                {'cx-pickups' in metrics && (
                 <div className="metric-item">
                     <InputField 
                         labelText="CX Pickups"
@@ -91,6 +94,7 @@ const DeliveryMetrics = ({metrics, onChange}) => {
                         onChange={handleInputChange}
                     />
                 </div>
+                )}
                 <div className="metric-item">
                     <InputField 
                         labelText="Routes"
